@@ -5,6 +5,33 @@
 <title>FELIZ ANIVERSARIO SKY</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
 <style>
+
+    #controles-musica {
+    position: fixed;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+}
+
+#controles-musica button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #5a9cff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#controles-musica button:hover {
+    background: #86c1f1;
+}
     body::before {
             content: "";
             position: absolute;
@@ -256,9 +283,12 @@ button:hover {
 </style>
 </head>
 <body>
+<div id="player" style="display:none;"></div>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZuGqUj5xrhM?si=UvN2kPGV-h8Npksu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
+<div id="controles-musica">
+    <button onclick="tocar()">▶</button>
+    <button onclick="pausar()">⏸</button>
+</div>
 <h1>FELIZ ANIVERSARIO SKY</h1>
 
 <h4>
@@ -378,6 +408,38 @@ async function startMic() {
     checkVolume();
 }
 </script>
+<script src="https://www.youtube.com/iframe_api"></script>
 
+<script>
+let player;
+
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'ZuGqUj5xrhM',
+        playerVars: {
+            autoplay: 1,
+            controls: 0,
+            loop: 1,
+            playlist: 'ZuGqUj5xrhM'
+        },
+        events: {
+            onReady: (event) => {
+                event.target.playVideo();
+            }
+        }
+    });
+}
+
+function tocar() {
+    player.playVideo();
+}
+
+function pausar() {
+    player.pauseVideo();
+}
+</script>
 </body>
 </html>
+
