@@ -399,7 +399,7 @@ async function startMic() {
         analyser.getByteFrequencyData(dataArray);
         let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
 
-        if (volume > 80 && podeApagar) {
+        if (volume > 70 && podeApagar) {
             apagarUmaVela();
             podeApagar = false;
             setTimeout(() => podeApagar = true, 700);
@@ -445,6 +445,7 @@ function pausar() {
 </script>
 </body>
 </html>
+
 
 
 
